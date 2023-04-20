@@ -3,4 +3,4 @@ Done with calibrate Joystic  and communication
 
 #TODO
 
-write arduino program fore the node to control the car
+write arduino program for the nodemcu to control the car
