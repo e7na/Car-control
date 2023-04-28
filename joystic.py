@@ -157,7 +157,7 @@ while program:
                     
 
                 elif state < 0:
-                    Left = translate(state, 0, -1, 0, 6)
+                    Left = translate(state, 0, -1, 0, 5)
                     #creat frame 
                     send_request = "0" + str(int(speed)) + str(int(back_spd)) + "0" + str(int(Left))
                     #Send data
