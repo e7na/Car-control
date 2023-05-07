@@ -94,7 +94,12 @@ while program:
             if JOYSTIC.get_button(10):
                 #creat frame 
                 send_request = "10000"
+                speed = 0
+                back_spd = 0
+                Right = 0
+                Left = 0
                 print("R1_Stop_" + send_request)
+                 
          
                #Send data
                 asyncio.get_event_loop().run_until_complete(connect(send_request))
@@ -104,6 +109,10 @@ while program:
             if JOYSTIC.get_button(5):
                 #creat frame 
                 send_request = "10000"
+                speed = 0
+                back_spd = 0
+                Right = 0
+                Left = 0
                 print("PS_Quit_" + send_request)
                 program = False
                 #Send data
@@ -116,6 +125,11 @@ while program:
            
             if JOYSTIC.get_axis(4) > -1 and JOYSTIC.get_axis(5) > -1 :
                 send_request = "10000"
+                speed = 0
+                back_spd = 0
+                Right = 0
+                Left = 0
+                
                 print("RL_Stop" + send_request)
                 #Send data
                 asyncio.get_event_loop().run_until_complete(connect(send_request))
@@ -182,6 +196,10 @@ while program:
            # check if joystic disconnected
         if event.type == pygame.JOYDEVICEREMOVED:
             send_request = "10000"
+            speed = 0
+            back_spd = 0
+            Right = 0
+            Left = 0
             print("Q_Stop" + send_request)
             program = False
             #Send data
