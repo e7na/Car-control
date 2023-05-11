@@ -113,27 +113,27 @@ void websocketEvent(WStype_t type, uint8_t *data, size_t length){
               break;
             case '1':
               Serial.println("Speed 1");
-              rotate(motor1, 204, CW);
+              rotate(motor1, 51, CW);
               //delay(2000);
               break;
             case '2':
               Serial.println("speed 2");
-              rotate(motor1, 409, CW);
+              rotate(motor1, 102, CW);
               //delay(2000);
               break;
             case '3':
               Serial.println("speed 3");
-              rotate(motor1, 613, CW);
+              rotate(motor1, 153, CW);
               //delay(2000);
               break;
             case '4':
               Serial.println("speed 4");
-              rotate(motor1, 818, CW);
+              rotate(motor1, 204, CW);
               //delay(2000);
               break;
             case '5':
               Serial.println("speed 5");
-              rotate(motor1, 1023, CW);
+              rotate(motor1, 255, CW);
               //delay(2000);
               break;
             default: Serial.println("error in forward");
@@ -146,27 +146,27 @@ void websocketEvent(WStype_t type, uint8_t *data, size_t length){
               break;*/
             case '1':
             Serial.println("speed -1");
-            rotate(motor1, 204, CCW);
+            rotate(motor1, 51, CCW);
             //delay(2000);
               break;
             case '2':
             Serial.println("speed -2");
-            rotate(motor1, 409, CCW);
+            rotate(motor1, 102, CCW);
             //delay(2000);
               break;
             case '3':
             Serial.println("speed -3");
-            rotate(motor1, 613, CCW);
+            rotate(motor1, 153, CCW);
             //delay(2000);
               break;
             case '4':
             Serial.println("speed -4");
-            rotate(motor1, 818, CCW);
+            rotate(motor1, 204, CCW);
             //delay(2000);
               break;
             case '5':
             Serial.println("speed -5");
-            rotate(motor1, 1023, CCW);
+            rotate(motor1, 255, CCW);
             //delay(2000);
               break;
             default: Serial.println("error in back");
@@ -180,27 +180,27 @@ void websocketEvent(WStype_t type, uint8_t *data, size_t length){
               break;
             case '1':
               Serial.println("right 1");
-              rotate(motor2, 204, CW);
+              rotate(motor2, 51, CW);
               //delay(2000);
               break;
             case '2':
               Serial.println("right 2");
-              rotate(motor2, 409, CW);
+              rotate(motor2, 102, CW);
               //delay(2000);
               break;
             case '3':
               Serial.println("right 3");
-              rotate(motor2, 613, CW);
+              rotate(motor2, 153, CW);
               //delay(2000);
               break;
             case '4':
               Serial.println("right 4");
-              rotate(motor2, 818, CW);
+              rotate(motor2, 204, CW);
               //delay(2000);
               break;
             case '5':
               Serial.println("right 5");
-              rotate(motor2, 1023, CW);
+              rotate(motor2, 255, CW);
               //delay(2000);
               break;
             default: Serial.println("error in right");
@@ -213,27 +213,27 @@ void websocketEvent(WStype_t type, uint8_t *data, size_t length){
               break;*/
             case '1':
               Serial.println("Left 1");
-              rotate(motor2, 204, CCW);
+              rotate(motor2, 51, CCW);
               //delay(2000);
               break;
             case '2':
               Serial.println("Left 2");
-              rotate(motor2, 409, CCW);
+              rotate(motor2, 102, CCW);
               //delay(2000);
               break;
             case '3':
               Serial.println("Left 3");
-              rotate(motor2, 613, CCW);
+              rotate(motor2, 153, CCW);
               //delay(2000);
               break;
             case '4':
               Serial.println("Left 4");
-              rotate(motor2, 818, CCW);
+              rotate(motor2, 204, CCW);
               //delay(2000);
               break;
             case '5':
               Serial.println("Left 5");
-              rotate(motor2, 1023, CCW);
+              rotate(motor2, 255, CCW);
               //delay(2000);
               break;
             default: Serial.println("error in left");
