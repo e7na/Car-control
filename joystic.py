@@ -1,8 +1,8 @@
 ######################################################################
 ##############    Joystic Calebration    #############################
 ##############        Eslam Fawzi        #############################
-##############        version 1.3        #############################
-##############         22/4/2023         #############################
+##############        version 1.4        #############################
+##############         1/7/2023         #############################
 ######################################################################
 
 import pygame
@@ -45,6 +45,8 @@ speed = 0
 back_spd = 0 
 h_light = 0
 l_light = 0
+R=0
+L=0
 program = True
 
 #program loop
@@ -95,10 +97,11 @@ while program:
             # R1 is used to stop car
             if JOYSTIC.get_button(10):
                 #creat frame 
-                send_request = "1005"+str(h_light)+str(l_light)
+                send_request = "10000"+str(h_light)+str(l_light)
                 speed = 0
                 back_spd = 0
-                R_L = 5
+                R=0
+                L=0
                 print("R1_Stop_" + send_request)
                #Send data
                 asyncio.get_event_loop().run_until_complete(connect(send_request))
@@ -108,7 +111,7 @@ while program:
                     h_light = 1
                 elif h_light == 1:
                     h_light = 0
-                send_request = "0"+str(int(speed)) + str(int(back_spd)) + str(int(R_L)) +str(h_light)+str(l_light)
+                send_request = "0"+str(int(speed)) + str(int(back_spd)) +str(int(R))+str(int(L)) +str(h_light)+str(l_light)
                 print("H_Light_"+send_request)
                 asyncio.get_event_loop().run_until_complete(connect(send_request))
             if JOYSTIC .get_button(3):
@@ -116,13 +119,13 @@ while program:
                     l_light = 1
                 elif l_light == 1:
                     l_light = 0
-                send_request = "0"+str(int(speed)) + str(int(back_spd)) + str(int(R_L)) +str(h_light)+str(l_light)
+                send_request = "0"+str(int(speed)) + str(int(back_spd)) +str(int(R))+str(int(L)) +str(h_light)+str(l_light)
                 print("L_Light_"+send_request)
                 asyncio.get_event_loop().run_until_complete(connect(send_request))
             # shutdown and stop car using PS button
             if JOYSTIC.get_button(5):
                 #creat frame 
-                send_request = "1005"+str(h_light)+str(l_light)
+                send_request = "10000"+str(h_light)+str(l_light)
                 speed = 0
                 back_spd = 0
                 R_L=5
@@ -137,10 +140,11 @@ while program:
         elif event.type == pygame.JOYAXISMOTION and not JOYSTIC.get_button(10):
            
             if JOYSTIC.get_axis(4) > -1 and JOYSTIC.get_axis(5) > -1 :
-                send_request = "1005"+str(h_light)+str(l_light)
+                send_request = "10000"+str(h_light)+str(l_light)
                 speed = 0
                 back_spd = 0
-                R_L=5
+                R=0
+                L=0
                 
                 print("RL_Stop" + send_request)
                 #Send data
@@ -151,7 +155,7 @@ while program:
                 back_spd = translate(L2, -1, 1, 0, 6)
                 speed = 0 
                 #creat frame 
-                send_request = "00" + str(int(back_spd)) +str(int(R_L)) +str(h_light)+str(l_light)
+                send_request = "00" + str(int(back_spd)) +str(int(R))+str(int(L)) +str(h_light)+str(l_light)
                 print("L2_" + send_request)
                 #Send data
                 asyncio.get_event_loop().run_until_complete(connect(send_request))
@@ -164,23 +168,31 @@ while program:
                 speed = translate(R2, -1, 1, 0, 6)
                 back_spd = 0 
                 #creat frame 
-                send_request = "0" + str(int(speed)) + "0" + str(int(R_L)) +str(h_light)+str(l_light)
+                send_request = "0" + str(int(speed)) + "0" +str(int(R)) + str(int(L)) +str(h_light)+str(l_light)
                 print("R2_" + send_request)
                 #Send data
                 asyncio.get_event_loop().run_until_complete(connect(send_request))
                 
-            # Left analog is used for direction range 0-4 right 6-9 left and 5 to mid
-            if JOYSTIC.get_axis(0) :
-                #JOYSTIC.get_axis(0) >= .01 or JOYSTIC.get_axis(0) <= 0 " الستيت دي مهمة علشان تكرار الانالوج الرخم"
+                # Left analog is used for direction range 0-255 right and same to left
+            if JOYSTIC.get_axis(0):
                 state = JOYSTIC.get_axis(0)
-                
-                R_L = translate(state, -1, 1, 1, 10)
+                if state > .01:
+                    Right = translate(state, 0, 1, 0, 255)
+                    Right = translate(Right , 0 , 255 , 0 , 6 )
+                    #creat frame 
+                    send_request = "0"+ str(int(speed)) + str(int(back_spd)) + str(int(Right)) + "0"+str(h_light)+str(l_light)
+                    print("AR_" + send_request)
+                    #Send data
+                    asyncio.get_event_loop().run_until_complete(connect(send_request))
                     
-                #creat frame 
-                send_request = "0"+ str(int(speed)) + str(int(back_spd)) + str(int(R_L)) +str(h_light)+str(l_light)
-                print("R_L_" + send_request)
-                #Send data
-                asyncio.get_event_loop().run_until_complete(connect(send_request))
+
+                elif state < 0:
+                    Left = translate(state, 0, -1, 0, 5)
+                    #creat frame 
+                    send_request = "0" + str(int(speed)) + str(int(back_spd)) + "0" + str(int(Left))+str(h_light)+str(l_light)
+                    #Send data
+                    asyncio.get_event_loop().run_until_complete(connect(send_request))
+                    print("AL_" + send_request)
                     
 
             '''if JOYSTIC.get_axis(1) > .5 and JOYSTIC.get_axis(0) < -.5:
@@ -203,7 +215,8 @@ while program:
             send_request = "1005" +str(h_light)+str(l_light)
             speed = 0
             back_spd = 0
-            R_L = 5
+            R=0
+            L=0
             print("Q_Stop" + send_request)
             program = False
             #Send data
